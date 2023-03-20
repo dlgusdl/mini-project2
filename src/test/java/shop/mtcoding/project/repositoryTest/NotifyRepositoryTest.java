@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import shop.mtcoding.project.model.notiify.NotifyRepository;
+import shop.mtcoding.project.model.notify.NotifyRepository;
 
 @MybatisTest
 public class NotifyRepositoryTest {
@@ -15,7 +15,7 @@ public class NotifyRepositoryTest {
     @Test
     public void insert_test() throws Exception {
         // given
-        notifyRepository.insert(8,null);
+        notifyRepository.insert(null,12);
     
         // when
     

@@ -2,11 +2,15 @@ package shop.mtcoding.project.model.resume;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
+@Getter
 public class Resume {
     private Integer resumeId;
     private Integer userId;

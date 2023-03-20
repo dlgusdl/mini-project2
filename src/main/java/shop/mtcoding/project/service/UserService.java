@@ -52,6 +52,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User ajax로그인(UserLoginReqDto userloginReqDto) {
+        userloginReqDto.setPassword(Sha256.encode(userloginReqDto.getPassword()));
         User principal = userRepository.findByEmailAndPassword(userloginReqDto.getEmail(),
                 userloginReqDto.getPassword());
         if (principal == null) {

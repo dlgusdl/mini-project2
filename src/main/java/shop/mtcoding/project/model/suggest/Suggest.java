@@ -2,11 +2,15 @@ package shop.mtcoding.project.model.suggest;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
+@Getter
 public class Suggest {
     private Integer suggestId;
     private Integer jobsId;

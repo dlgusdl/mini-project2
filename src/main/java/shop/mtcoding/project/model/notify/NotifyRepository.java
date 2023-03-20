@@ -1,4 +1,4 @@
-package shop.mtcoding.project.model.notiify;
+package shop.mtcoding.project.model.notify;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

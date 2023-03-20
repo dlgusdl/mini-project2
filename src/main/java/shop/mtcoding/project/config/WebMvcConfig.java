@@ -1,17 +1,26 @@
 package shop.mtcoding.project.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import shop.mtcoding.project.config.interceptor.CustomInterceptor;
+import lombok.RequiredArgsConstructor;
+import shop.mtcoding.project.config.interceptor.LoginInterceptor;
+import shop.mtcoding.project.config.resolver.MyLoginArgumentResolver;
 
+@RequiredArgsConstructor
 @Configuration
-public class AppConfig implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
+
+    private final MyLoginArgumentResolver myLoginArgumentResolver;
+    private final LoginInterceptor loginInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new CustomInterceptor())
+        registry.addInterceptor(loginInterceptor)
         .addPathPatterns("/**") // 모든 URL에 대해 인터셉터를 수행하도록 설정합니다.
         .excludePathPatterns("/", "/user/join", "/user/emailCheck",
         "/user/login", "/user/login2", "/comp/join", "/comp/emailCheck",  
@@ -19,4 +28,9 @@ public class AppConfig implements WebMvcConfigurer {
         "/help", "/jobs/info/search", "/jobs/info/list"  
         ); // 인터셉터를 수행하지 않도록 설정합니다.
     }
-}
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(myLoginArgumentResolver);
+    }
+}   

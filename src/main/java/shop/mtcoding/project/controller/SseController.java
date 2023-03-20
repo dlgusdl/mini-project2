@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import shop.mtcoding.project.dto.apply.ApplyResp.ApllyStatusUserRespDto;
 import shop.mtcoding.project.model.apply.Apply;
 import shop.mtcoding.project.model.apply.ApplyRepository;
-import shop.mtcoding.project.model.notiify.NotifyRepository;
+import shop.mtcoding.project.model.notify.NotifyRepository;
 import shop.mtcoding.project.model.user.User;
 
 @Controller

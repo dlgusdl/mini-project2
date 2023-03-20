@@ -3,6 +3,7 @@ package shop.mtcoding.project.config.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,7 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import shop.mtcoding.project.model.comp.Comp;
 import shop.mtcoding.project.model.user.User;
 
-public class CustomInterceptor implements HandlerInterceptor {
+@Configuration
+public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

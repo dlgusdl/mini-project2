@@ -12,7 +12,7 @@ import shop.mtcoding.project.model.apply.Apply;
 import shop.mtcoding.project.model.apply.ApplyRepository;
 import shop.mtcoding.project.model.jobs.Jobs;
 import shop.mtcoding.project.model.jobs.JobsRepository;
-import shop.mtcoding.project.model.notiify.NotifyRepository;
+import shop.mtcoding.project.model.notify.NotifyRepository;
 import shop.mtcoding.project.model.resume.Resume;
 import shop.mtcoding.project.model.resume.ResumeRepository;
 
@@ -50,12 +50,13 @@ public class ApplyService {
             applyRepository.insert(aDto);
             result = aDto.getApplyId();
         } catch (Exception e) {
-            throw new CustomApiException("서버에 일시적인 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomApiException("서버에 일시적인 오류가 발생했습니다.111", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         try {
+            System.out.println("테스트 : "+ result);
             notifyRepository.insert(result, null);
         } catch (Exception e) {
-            throw new CustomApiException("서버에 일시적인 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new CustomApiException("서버에 일시적인 오류가 발생했습니다.222", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

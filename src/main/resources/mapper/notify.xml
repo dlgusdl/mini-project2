@@ -28,6 +28,7 @@
         <if test="suggestId != null">
             suggest_id = #{suggestId},
         </if>
-            state = 0, created_at = now()
+            state = 0, 
+            created_at = now()
     </insert>
 </mapper>
