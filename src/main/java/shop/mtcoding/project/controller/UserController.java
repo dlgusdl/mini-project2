@@ -6,12 +6,13 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,8 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.RequiredArgsConstructor;
+import shop.mtcoding.project.config.annotation.LoginUser;
 import shop.mtcoding.project.config.exception.CustomApiException;
-import shop.mtcoding.project.config.exception.CustomException;
 import shop.mtcoding.project.dto.apply.ApplyResp.ApllyStatusUserRespDto;
 import shop.mtcoding.project.dto.common.ResponseDto;
 import shop.mtcoding.project.dto.interest.InterestResp.InterestChangeRespDto;
@@ -44,76 +46,35 @@ import shop.mtcoding.project.model.suggest.SuggestRepository;
 import shop.mtcoding.project.model.user.User;
 import shop.mtcoding.project.model.user.UserRepository;
 import shop.mtcoding.project.service.UserService;
+import shop.mtcoding.project.util.CheckValid;
 import shop.mtcoding.project.util.DateUtil;
-import shop.mtcoding.project.util.MockSession;
 import shop.mtcoding.project.util.Sha256;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
-
-    @Autowired
-    private HttpSession session;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ApplyRepository applyRepository;
-
-    @Autowired
-    private SuggestRepository suggestRepository;
-
-    @Autowired
-    private ScrapRepository scrapRepository;
-
-    @Autowired
-    private ResumeRepository resumeRepository;
-
-    @Autowired
-    private SkillRepository skillRepository;
-
-    @Autowired
-    private InterestRepository interestRepository;
-
-    @Autowired
-    private JobsRepository jobsRepository;
+    private final HttpSession session;
+    private final UserService userService;
+    private final UserRepository userRepository;
+    private final ApplyRepository applyRepository;
+    private final SuggestRepository suggestRepository;
+    private final ScrapRepository scrapRepository;
+    private final ResumeRepository resumeRepository;
+    private final SkillRepository skillRepository;
+    private final InterestRepository interestRepository;
+    private final JobsRepository jobsRepository;
 
     @PostMapping("/user/join")
-    public String join(UserJoinReqDto userJoinReqDto) {
-        if (userJoinReqDto.getEmail() == null || userJoinReqDto.getEmail().isEmpty()) {
-            throw new CustomException("이메일을 작성해주세요");
-        }
-        if (userJoinReqDto.getName() == null || userJoinReqDto.getName().isEmpty()) {
-            throw new CustomException("이름을 작성해주세요");
-        }
-        if (userJoinReqDto.getPassword() == null ||
-                userJoinReqDto.getPassword().isEmpty()) {
-            throw new CustomException("패스워드를 작성해주세요");
-        }
-        if (userJoinReqDto.getPassword() == null ||
-                userJoinReqDto.getPassword().isEmpty()) {
-            throw new CustomException("동일한 패스워드를 작성해주세요");
-        }
-        if (userJoinReqDto.getBirth() == null || userJoinReqDto.getBirth().isEmpty()) {
-            throw new CustomException("생년월일을 작성해주세요");
-        }
-        if (userJoinReqDto.getTel() == null || userJoinReqDto.getTel().isEmpty()) {
-            throw new CustomException("휴대폰번호을 작성해주세요");
-        }
+    public String join(@Valid UserJoinReqDto userJoinReqDto, BindingResult bindingResult) {
         userService.회원가입(userJoinReqDto);
-
         return "redirect:/user/login";
     }
 
     @GetMapping("/user/emailCheck")
     public @ResponseBody ResponseEntity<?> sameEmailCheck(String email) {
+        CheckValid.inNullApi(email, "이메일이 비었습니다.");
         User userPS = userRepository.findByUserEmail(email);
-        if (userPS != null) {
-            throw new CustomApiException("동일한 email이 존재합니다.");
-        }
+        CheckValid.inNullApi(userPS, "동일한 email이 존재합니다.");
         return new ResponseEntity<>(new ResponseDto<>(1, "해당 email은 사용 가능합니다.", null), HttpStatus.OK);
     }
 
@@ -122,14 +83,13 @@ public class UserController {
         return "user/joinForm";
     }
 
+    @GetMapping("/user/login")
+    public String loginForm() {
+        return "user/loginForm";
+    }
+
     @PostMapping("/user/login")
-    public String login(UserLoginReqDto userloginReqDto, HttpServletResponse httpServletResponse) {
-        if (userloginReqDto.getEmail() == null || userloginReqDto.getEmail().isEmpty()) {
-            throw new CustomException("email을 작성해주세요");
-        }
-        if (userloginReqDto.getPassword() == null || userloginReqDto.getPassword().isEmpty()) {
-            throw new CustomException("password 작성해주세요");
-        }
+    public String login(@Valid UserLoginReqDto userloginReqDto, BindingResult bindingResult, HttpServletResponse httpServletResponse) {
         User principal = userService.로그인(userloginReqDto);
         if (principal == null) {
             return "redirect:/loginForm";
@@ -152,14 +112,7 @@ public class UserController {
     }
 
     @PostMapping("/user/login2")
-    public ResponseEntity<?> login2(@RequestBody UserLoginReqDto userloginReqDto,
-            HttpServletResponse httpServletResponse) {
-        if (userloginReqDto.getEmail() == null || userloginReqDto.getEmail().isEmpty()) {
-            throw new CustomApiException("email을 작성해주세요");
-        }
-        if (userloginReqDto.getPassword() == null || userloginReqDto.getPassword().isEmpty()) {
-            throw new CustomApiException("password 작성해주세요");
-        }
+    public ResponseEntity<?> login2(@RequestBody @Valid UserLoginReqDto userloginReqDto, HttpServletResponse httpServletResponse) {
         User principal = userService.ajax로그인(userloginReqDto);
         if (principal != null) {
             if (userloginReqDto.getRememberEmail() == null) {
@@ -178,11 +131,6 @@ public class UserController {
         return new ResponseEntity<>(new ResponseDto<>(1, "로그인 성공", null), HttpStatus.OK);
     }
 
-    @GetMapping("/user/login")
-    public String loginForm() {
-        return "user/loginForm";
-    }
-
     @PostMapping("/user/passwordCheck")
     public @ResponseBody ResponseEntity<?> samePasswordCheck(@RequestBody UserPasswordReqDto userPasswordReqDto) {
         userPasswordReqDto.setPassword(Sha256.encode(userPasswordReqDto.getPassword()));
@@ -198,7 +146,6 @@ public class UserController {
 
     @PutMapping("/user/update")
     public ResponseEntity<?> updateUser(@RequestBody UserUpdateReqDto userUpdateReqDto) {
-        // System.out.println("테스트 : " + userUpdateReqDto.toString());
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
             throw new CustomApiException("인증이 되지 않았습니다", HttpStatus.UNAUTHORIZED);
@@ -335,32 +282,16 @@ public class UserController {
     }
 
     @GetMapping("/user/profileUpdateForm")
-    public String profileUpdateForm(Model model) {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/user/login";
-        }
-
-        User userPS = userRepository.findById(principal.getUserId());
-
+    public String profileUpdateForm(@LoginUser User user, Model model) {
+        User userPS = userRepository.findById(user.getUserId());
         model.addAttribute("user", userPS);
-
         return "user/profileUpdateForm";
     }
 
     @PutMapping("/user/profileUpdate")
-    public ResponseEntity<?> profileUpdate(MultipartFile photo) throws Exception {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            throw new CustomApiException("로그인이 필요한 페이지 입니다.", HttpStatus.UNAUTHORIZED);
-        }
-        // System.out.println(profile.getContentType());
-        // System.out.println(profile.getOriginalFilename());
-        if (photo.isEmpty()) {
-            throw new CustomApiException("사진이 전송 되지 않았습니다.");
-        }
-
-        User userPS = userService.프로필사진수정(photo, principal.getUserId());
+    public ResponseEntity<?> profileUpdate(@LoginUser User user, MultipartFile photo) throws Exception {
+        CheckValid.inNullApi(photo, "사진이 전송 되지 않았습니다.");
+        User userPS = userService.프로필사진수정(photo, user.getUserId());
         session.setAttribute("principal", userPS);
         return new ResponseEntity<>(new ResponseDto<>(1, "프로필 수정 성공", null), HttpStatus.OK);
     }

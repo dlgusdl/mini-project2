@@ -16,7 +16,10 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(MyValidationException.class)
     public ResponseEntity<?> error(MyValidationException e){
-        return new ResponseEntity<>(e.getErroMap().toString(), HttpStatus.BAD_REQUEST);
+        String errMsg = e.getErroMap().toString();
+        String devideMsg = errMsg.split("/")[0].split("=")[1];
+        // System.out.println("테스트 : "+ devideMsg);
+        return new ResponseEntity<>(Script.back(devideMsg), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CustomException.class)

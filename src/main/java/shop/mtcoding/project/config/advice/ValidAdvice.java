@@ -38,7 +38,7 @@ public class ValidAdvice {
                     Map<String, String> errorMap = new HashMap<>();
 
                     for (FieldError error : bindingResult.getFieldErrors()) {
-                        errorMap.put(error.getField(), error.getDefaultMessage());
+                        errorMap.put(error.getField(),error.getDefaultMessage());
                     }
                     throw new MyValidationException(errorMap);
                 }

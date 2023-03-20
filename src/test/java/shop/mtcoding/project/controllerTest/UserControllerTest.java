@@ -92,7 +92,7 @@ public class UserControllerTest {
     @Transactional
     public void join_test() throws Exception {
         // given
-        String requestBody = "email=love@nate.com&password=1234&name=쌀&birth=11111&tel=11111&Address=busan";
+        String requestBody = "email=&password=1234&name=쌀&birth=11111&tel=11111&Address=busan";
 
         // when
         ResultActions resultActions = mvc.perform(post("/user/join").content(requestBody)

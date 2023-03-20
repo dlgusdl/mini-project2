@@ -12,7 +12,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import lombok.RequiredArgsConstructor;
-import shop.mtcoding.project.config.annotation.LoginUserResolver;
+import shop.mtcoding.project.config.annotation.LoginUser;
 import shop.mtcoding.project.model.user.User;
 
 @RequiredArgsConstructor
@@ -23,13 +23,13 @@ public class MyLoginArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        boolean check1 = parameter.getParameterAnnotation(LoginUserResolver.class) != null;
+        boolean check1 = parameter.getParameterAnnotation(LoginUser.class) != null;
         boolean check2 = User.class.equals(parameter.getParameterType());
         return check1 && check2;
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        return session.getAttribute("loginUser");
+        return session.getAttribute("principal");
     }
 }

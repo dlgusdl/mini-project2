@@ -42,8 +42,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public User 로그인(UserLoginReqDto userloginReqDto) {
         userloginReqDto.setPassword(Sha256.encode(userloginReqDto.getPassword()));
-        User principal = userRepository.findByEmailAndPassword(userloginReqDto.getEmail(),
-                userloginReqDto.getPassword());
+        User principal = userRepository.findByEmailAndPassword(userloginReqDto.getEmail(), userloginReqDto.getPassword());
         if (principal == null) {
             throw new CustomException("이메일 혹은 패스워드가 잘못 입력 되었습니다.");
         }
