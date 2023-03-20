@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="shop.mtcoding.project.model.user.UserRepository">
+    <select id="findAll" resultType="shop.mtcoding.project.model.user.User">
+        select * from user_tb
+    </select>
+
+    <select id="findById" resultType="shop.mtcoding.project.model.user.User">
+        select * from user_tb where user_id = #{userId}
+    </select>
+
+    <select id="findByUserId" resultType="shop.mtcoding.project.dto.user.UserResp$UserDataRespDto">
+        select user_id, name, birth, tel, photo, address, email
+          from user_tb 
+          where user_id = #{userId}
+    </select>
+
+    <select id="findByUserEmail" resultType="shop.mtcoding.project.model.user.User">
+        select * from user_tb where email = #{email}
+    </select>
+
+    <select id="findByEmailAndPassword" resultType="shop.mtcoding.project.model.user.User">
+        select * from user_tb where email = #{email} and password = #{password}
+    </select>
+
+    <select id="findByUseridAndPassword" resultType="shop.mtcoding.project.model.user.User">
+        select * from user_tb where user_id = #{userId} and password = #{password}
+    </select>
+
+    <insert id="insert">
+        insert into user_tb ( email, password, name, birth, tel, address, created_at)
+            values ( #{uDto.email}, #{uDto.password}, #{uDto.name}, #{uDto.birth}, #{uDto.tel}, #{uDto.address}, now());
+    </insert>
+
+    <update id="updateById">
+        update user_tb set 
+            password =  #{uDto.password}, 
+            name = #{uDto.name}, 
+            birth = #{uDto.birth},
+            tel =  #{uDto.tel},
+            address = #{uDto.address}
+            where user_id = #{uDto.userId}
+    </update>
+
+    <update id="updatePhotoById">
+        update user_tb set             
+            photo = #{photo}
+            where user_id = #{userId}
+    </update>
+
+
+    <delete id="deleteById">
+        delete from user_tb where id = #{uDto.userId}
+    </delete>
+</mapper>
+   

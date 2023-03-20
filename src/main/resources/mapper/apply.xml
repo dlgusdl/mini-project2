@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="shop.mtcoding.project.model.apply.ApplyRepository">
+    <select id="findAll" resultType="shop.mtcoding.project.model.apply.Apply">
+        select * from apply_tb
+    </select>
+    <select id="findByApplyId" resultType="shop.mtcoding.project.model.apply.Apply">
+      select * from apply_tb where apply_id = #{applyId}
+  </select>
+
+  <select id="findByUserIdToNotice" resultType="shop.mtcoding.project.model.apply.Apply">
+    select a.apply_id, a.resume_id, a.jobs_id, a.state, r.user_id FROM apply_tb a join resume_tb r
+      on a.resume_id = r.resume_id join user_tb u
+      on u.user_id = r.user_id
+      where u.user_id = #{userId}
+      and a.state in (-1,1)
+  </select>
+
+
+
+  <select id="findByCompIdAndApplyId" resultType="shop.mtcoding.project.dto.apply.ApplyResp$ApplytoCompRespDto">
+    select apply_id, state from apply_tb a join jobs_tb j
+      on a.jobs_id = j.jobs_id 
+      where apply_id = #{applyId}
+      and comp_id = #{compId}
+  </select>
+
+    <select id="findApplyStateByUserIdAndJobsId" resultType="shop.mtcoding.project.dto.apply.ApplyResp$ApplyUserStatusDetailRespDto">
+      SELECT ifnull(a.state,null) state FROM apply_tb a join resume_tb r
+        on a.resume_id = r.resume_id
+        where r.user_id = #{userId} and a.jobs_id = #{jobsId}
+    </select>
+
+
+    <select id="findAllByCompIdtoApply" resultType="shop.mtcoding.project.dto.apply.ApplyResp$ApllyStatusCompRespDto">
+      select a.apply_id, a.resume_id, a.jobs_id, a.state, r.title, j.position, r.career, r.education, u.name, u.birth from apply_tb a join jobs_tb j 
+        on a.jobs_id = j.jobs_id join resume_tb r
+        on a.resume_id = r.resume_id join user_tb u
+        on u.user_id = r.user_id
+        where j.comp_id = #{compId}
+    </select>
+
+    <select id="findAllByUserIdtoApply" resultType="shop.mtcoding.project.dto.apply.ApplyResp$ApllyStatusUserRespDto">
+      select a.apply_id, a.resume_id, a.jobs_id, a.state, j.title jobs_title, r.title resume_title,  j.position from apply_tb a join jobs_tb j
+        on a.jobs_id = j.jobs_id join resume_tb r
+        on a.resume_id = r.resume_id
+        where r.user_id = #{userId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="aDto.applyId">
+      insert into apply_tb ( resume_id, jobs_id, state, created_at ) 
+        values ( #{aDto.resumeId}, #{aDto.jobsId}, 0, now() )
+    </insert>
+
+    <update id="updateByApplyId">
+      update apply_tb set state = #{aDto.state}
+      where apply_id = #{aDto.applyId}
+    </update>
+
+    <delete id="deleteById">
+
+    </delete>
+</mapper>

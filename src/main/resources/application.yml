@@ -1,0 +1,42 @@
+server:
+  port: 8080
+  # port: 80
+  servlet:
+    encoding:
+      charset: utf-8
+      force: true
+    session:
+      timeout: 3600
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+    # url: jdbc:mariadb://connect-maria-db.c3jrqy5bbxit.ap-northeast-2.rds.amazonaws.com:3306/conn?characterEncoding=utf-8&serverTimezone=Asia/Seoul
+    # url: jdbc:mariadb://todo-maria-db.cwxvuzi0ngbx.ap-northeast-2.rds.amazonaws.com:3306/mini_project?characterEncoding=utf-8&serverTimezone=Asia/Seoul
+    # driverClassName: org.mariadb.jdbc.Driver
+    # username: root
+    # password: green123
+  mvc:
+    view:
+      prefix: /WEB-INF/view/
+      suffix: .jsp
+  sql:
+    init:
+      schema-locations:
+      - classpath:db/table.sql
+      data-locations:
+      - classpath:db/data.sql
+  h2:
+    console:
+      enabled: true
+  output:
+    ansi:
+      enabled: always
+mybatis:
+  mapper-locations:
+  - classpath:mapper/**.xml
+  configuration:
+    map-underscore-to-camel-case: true

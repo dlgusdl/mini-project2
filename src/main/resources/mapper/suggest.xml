@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="shop.mtcoding.project.model.suggest.SuggestRepository">
+    <select id="findAll" resultType="shop.mtcoding.project.model.suggest.Suggest">
+        select * from suggest_tb
+    </select>
+    <select id="findById" resultType="shop.mtcoding.project.model.suggest.Suggest">
+      select * from suggest_tb where suggest_id = #{suggestId}
+    </select>
+    
+    <select id="findByCompIdAndResumeId" resultType="shop.mtcoding.project.dto.suggest.SuggestResp$SuggestToCompRespIdDto">
+      select suggest_id, state from suggest_tb s
+        join jobs_tb j on s.jobs_id = j.jobs_id
+        where resume_id = #{resumeId}
+        and j.comp_id = #{compId}
+    </select>
+
+    <select id="findAllByCompIdtoSuggest" resultType="shop.mtcoding.project.dto.suggest.SuggestResp$SuggestToCompRespDto">
+      select s.suggest_id, s.jobs_id, s.resume_id, j.title, j.position, s.state, u.name from suggest_tb s join jobs_tb j
+        on s.jobs_id = j.jobs_id
+        join resume_tb r 
+        on r.resume_id = s.resume_id
+        join user_tb u
+        on u.user_id = r.user_id
+        where j.comp_id = #{compId}
+    </select>
+    
+    <select id="findAllGetOfferByUserId" resultType="shop.mtcoding.project.dto.suggest.SuggestResp$SuggestToUserRespDto">
+      select s.suggest_id, j.jobs_id, r.resume_id, c.comp_name, j.title, j.position, s.state, u.name from suggest_tb s join jobs_tb j
+        on s.jobs_id = j.jobs_id join comp_tb c
+        on j.comp_id = c.comp_id join resume_tb r
+        on r.resume_id = s.resume_id join user_tb u
+        on u.user_id = r.user_id
+        where u.user_id = #{userId}
+    </select>
+
+    <insert id="insert">
+      insert into suggest_tb ( resume_id, jobs_id, state, created_at ) 
+      values ( #{sDto.resumeId}, #{sDto.jobsId}, 0, now() )
+    </insert>
+
+    <update id="updateBySuggestId">
+      update suggest_tb set state = #{sDto.state} 
+      where suggest_id = #{sDto.suggestId}
+    </update>
+
+    <delete id="deleteById">
+
+    </delete>
+</mapper>

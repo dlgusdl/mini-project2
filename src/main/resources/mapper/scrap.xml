@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="shop.mtcoding.project.model.scrap.ScrapRepository">
+    <select id="findAll" resultType="shop.mtcoding.project.model.scrap.UserScrap">
+        select * from user_scrap_tb
+    </select>
+
+    <select id="findAllScrapByCompId" resultType="shop.mtcoding.project.dto.scrap.CompScrapResp$CompScrapResumeRespDto">
+      select s.comp_scrap_id, s.resume_id, u.name, u.birth, r.title, r.career, r.education,  u.address  from comp_scrap_tb s join resume_tb r
+        on s.resume_id = r.resume_id join user_tb u
+        on u.user_id = r.user_id
+        where s.comp_id = #{compId}
+    </select>
+
+    <select id="findScrapIdByUserIdAndJobsId" resultType="shop.mtcoding.project.dto.scrap.UserScrapResp$UserScrapIdRespDto">
+      select user_scrap_id from user_scrap_tb where user_id = #{userId} and jobs_id = #{jobsId}
+    </select>
+
+    <select id="findAllScrapByUserId" resultType="shop.mtcoding.project.dto.scrap.UserScrapResp$UserScrapRespDto">
+      select us.user_scrap_id,
+              j.jobs_id,
+              j.position,
+              j.career,
+              j.title,
+              c.comp_name,
+              j.end_date
+              from user_scrap_tb us
+              join jobs_tb j ON us.jobs_id = j.jobs_id
+              join comp_tb c 
+              on c.comp_id = j.comp_id
+              where us.user_id = #{userId}
+    </select>
+
+    <select id="findByUserId" resultType="shop.mtcoding.project.model.scrap.UserScrap">
+      select * from user_scrap_tb where user_scrap_id = #{userScrapId}
+    </select>
+
+    <select id="findByCompId" resultType="shop.mtcoding.project.model.scrap.CompScrap">
+      select * from comp_scrap_tb where comp_scrap_id = #{compScrapId}
+    </select>
+    
+    <insert id="insertbyUser" useGeneratedKeys="true" keyProperty="sDto.userScrapId">
+      insert into user_scrap_tb (user_id, jobs_id, created_at) values (#{userId}, #{sDto.jobsId}, now())
+    </insert>
+
+    <insert id="insertbyComp" useGeneratedKeys="true" keyProperty="sDto.compScrapId">
+      insert into comp_scrap_tb (comp_id, resume_id, created_at) values (#{compId}, #{sDto.resumeId}, now())
+    </insert>
+
+    <delete id="deleteByUserScrapId">
+      delete from user_scrap_tb where user_scrap_id = #{userScrapId}
+    </delete>
+
+    <delete id="deleteByCompScrapId">
+      delete from comp_scrap_tb where comp_scrap_id = #{compScrapId}
+    </delete>
+
+  
+
+</mapper>
