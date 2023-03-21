@@ -97,28 +97,36 @@
         <div style="font-weight: bold; font-size: 0.8em; color: rgb(145, 143, 143); display:inline; margin-left : 0em;">
             고객센터 ＞ 문의하기
         </div>
-
+        <form action="/help/Write" method="post">
         <div style="margin-top: 70px;"></div>
         <div style="font-weight: bold; font-size: 1.3em;">문의등록</div>
         <div style="margin-top: 30px;"></div>
         <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold; display: inline;">제목</h2>
         <div style="color: red; display: inline;">*</div>
         <br>
-        <textarea name="text-align" cols="130" rows="1" placeholder="제목(예) 이벤트 신청 문의 | 보상금 신청 | 수수료 정산 등"></textarea>
+        <textarea name="content" cols="130" rows="1" placeholder="제목(예) 이벤트 신청 문의 | 보상금 신청 | 수수료 정산 등"></textarea>
         <br>
         <div style="margin-top: 30px;"></div>
         <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold; display: inline;">설명</h2>
         <div style="color: red; display: inline;">*</div>
         <br>
-        <textarea name="text-align" cols="130" rows="7"
+        <textarea name="content" cols="130" rows="7"
             placeholder="상세한 문의 사항을 기입해주세요. 영업일 기준 1~2일 이내 가능한 빨리 답변드릴 수 있도록 노력하겠습니다."></textarea>
 
 
         <div style="margin-top: 30px;">
         </div>
-        <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold;">연락처</h2>
+        <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold;">연락처<div style="color: red; display: inline;"> *</div></h2>
         <input type="number" min="0" max="9" placeholder=" '-'없이 번호만 입력"
-            style="font-size: 1.0em; font-weight: bold; display: inline; width: 990px;"></input>
+            style="font-size: 1.0em; font-weight: bold; display: inline; width: 300px;"></input>
+        <div style="margin-top: 30px;"></div>
+        <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold;">이메일<div style="color: red; display: inline;"> *</div></h2>
+        <input name="title" type="email" min="0" max="9" placeholder="이메일을 입력하여주세요." 
+            style="font-size: 1.0em; font-weight: bold; display: inline; width: 300px;"></input>
+        <div style="margin-top: 30px;"> </div>
+        <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold;">비밀번호<div style="color: red; display: inline;"> *</div></h2>
+        <input name="title" type="password" min="0" max="9" placeholder="비밀번호를 입력하여주세요." 
+            style="font-size: 1.0em; font-weight: bold; display: inline; width: 300px;"></input>
 
         <div style="margin-top: 30px;"></div>
         <div style="font-weight: bold; font-size: 0.9em; display:inline;">개인정보 수집 및 이용에 대한 동의 내용</div>
@@ -139,8 +147,9 @@
         <div style="margin-top: 100px;"></div>
         <button type="submit" class="eButton"
             style="border-radius: 40px; padding: 1.5px 20px; color: rgb(255, 255, 255);">
-            <a href="/help" style="color: azure; text-decoration: none;">제출하기</a>
+            <a style="color: azure; text-decoration: none;">제출하기</a>
         </button>
+        </form>
         <div style="margin-top: 200px;">
         </div>
     </div>

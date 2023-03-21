@@ -1,0 +1,19 @@
+package shop.mtcoding.project.model.help;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.h2.command.dml.Help;
+
+import shop.mtcoding.project.dto.help.HelpReq.HelphelpReqDto;
+
+@Mapper
+public interface HelpRepository {
+    public List<Help> findAll();
+    public Help fnidBytitle(@Param("title") String title);
+    public Help findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+    public Help fnidByHelpId(Integer helpId);
+    public int insert(@Param("hDto") HelphelpReqDto hDto);
+    public int deleteById();
+}
