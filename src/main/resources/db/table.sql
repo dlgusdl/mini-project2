@@ -111,9 +111,8 @@ create table notify_tb(
 
 create table help_tb(
     help_id int auto_increment primary key,
-    title varchar not null,
-    password varchar(100) not null,
-    content varchar not null,
     user_id int not null,
+    title varchar not null,
+    content varchar not null,
     created_at timestamp
 );

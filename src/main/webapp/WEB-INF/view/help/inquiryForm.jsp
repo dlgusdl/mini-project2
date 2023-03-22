@@ -97,7 +97,7 @@
         <div style="font-weight: bold; font-size: 0.8em; color: rgb(145, 143, 143); display:inline; margin-left : 0em;">
             고객센터 ＞ 문의하기
         </div>
-        <form action="/help/Write" method="post">
+        <form action="/help/inquiryForm" method="post">
         <div style="margin-top: 70px;"></div>
         <div style="font-weight: bold; font-size: 1.3em;">문의등록</div>
         <div style="margin-top: 30px;"></div>
@@ -117,15 +117,11 @@
         <div style="margin-top: 30px;">
         </div>
         <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold;">연락처<div style="color: red; display: inline;"> *</div></h2>
-        <input type="number" min="0" max="9" placeholder=" '-'없이 번호만 입력"
+        <input type="tel" min="0" max="9" placeholder=" '-'없이 번호만 입력"
             style="font-size: 1.0em; font-weight: bold; display: inline; width: 300px;"></input>
         <div style="margin-top: 30px;"></div>
         <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold;">이메일<div style="color: red; display: inline;"> *</div></h2>
-        <input name="title" type="email" min="0" max="9" placeholder="이메일을 입력하여주세요." 
-            style="font-size: 1.0em; font-weight: bold; display: inline; width: 300px;"></input>
-        <div style="margin-top: 30px;"> </div>
-        <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold;">비밀번호<div style="color: red; display: inline;"> *</div></h2>
-        <input name="title" type="password" min="0" max="9" placeholder="비밀번호를 입력하여주세요." 
+        <input type="email" min="0" max="9" placeholder="이메일을 입력하여주세요." 
             style="font-size: 1.0em; font-weight: bold; display: inline; width: 300px;"></input>
 
         <div style="margin-top: 30px;"></div>
@@ -149,8 +145,8 @@
             style="border-radius: 40px; padding: 1.5px 20px; color: rgb(255, 255, 255);">
             <a style="color: azure; text-decoration: none;">제출하기</a>
         </button>
-        </form>
         <div style="margin-top: 200px;">
+        </form>
         </div>
     </div>
 
