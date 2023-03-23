@@ -4,27 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="shop.mtcoding.project.model.help.HelpRepository">
-    <!-- <select id="findAll" resultType="shop.mtcoding.project.model.help.Help">
-        select * from help_tb
-    </select>
-
-    <select id="findAllWithHelp" resultType="shop.mtcoding.project.model.help.HelpResp$HelpMainRespDto">
-        select title, helpname 
-            ( select helpname from help_tb ) helpname 
-            from help_tb  
-    </select>
-
-    <select id="findByEmailAndPassword" resultType="shop.mtcoding.project.model.help.HelpReq$HelpSaveReqDto">
-        select * from help_tb where email = #{email} and password = #{password}
-    </select>
-
-    <select id="findById" resultType="shop.mtcoding.project.model.help.Help">
-        select * from help_tb where help_id = #{helpId}
-    </select> -->
-
     <insert id="insert">
-        insert into help_tb ( user_id, title, content, created_at)
-            values ( #{hDto.userId}, #{hDto.title}, #{hDto.content}, now());
+        insert into help_tb (user_id, title, content, email, tel, created_at)
+            values ( #{hDto.userId}, #{hDto.title}, #{hDto.content}, #{hDto.email}, #{hDto.tel}, now());
     </insert>
 
     <delete id="deleteById">

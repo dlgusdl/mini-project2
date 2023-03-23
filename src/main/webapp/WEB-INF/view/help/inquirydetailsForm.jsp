@@ -95,57 +95,19 @@
         </div>
 
         <div style="font-weight: bold; font-size: 0.8em; color: rgb(145, 143, 143); display:inline; margin-left : 0em;">
-            고객센터 ＞ 문의하기
+            고객센터 ＞ 문의 상세보기
         </div>
         <form action="/help/inquiryForm" method="post">
-        <div style="margin-top: 70px;"></div>
-        <div style="font-weight: bold; font-size: 1.3em;">문의등록</div>
-        <div style="margin-top: 30px;"></div>
+        <div style="margin-top: 80px;"></div>
         <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold; display: inline;">제목</h2>
-        <div style="color: red; display: inline;">*</div>
         <br>
-        <textarea name="title" cols="130" rows="1" placeholder="제목(예) 이벤트 신청 문의 | 보상금 신청 | 수수료 정산 등"></textarea>
-        <br>
-        <div style="margin-top: 30px;"></div>
-        <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold; display: inline;">설명</h2>
-        <div style="color: red; display: inline;">*</div>
-        <br>
-        <textarea name="content" cols="130" rows="7"
-            placeholder="상세한 문의 사항을 기입해주세요. 영업일 기준 1~2일 이내 가능한 빨리 답변드릴 수 있도록 노력하겠습니다."></textarea>
+        <table>
+            <hr style="border: solid 1px black;">
+            <tr>
+                <th colspan="5"  bgcolor="gray">주변인 특징</th>
+            </tr>
+        </table>
 
-
-        <div style="margin-top: 30px;">
-        </div>
-        <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold;">연락처<div style="color: red; display: inline;"> *</div></h2>
-        <input name="tel" type="tel" min="0" max="9" placeholder=" '-'없이 번호만 입력"
-            style="font-size: 1.0em; font-weight: bold; display: inline; width: 300px;"/>
-        <div style="margin-top: 30px;"></div>
-        <h2 style="font-size: 1.0em; margin-left: 0em; font-weight: bold;">이메일<div style="color: red; display: inline;"> *</div></h2>
-        <input name="email" type="email" min="0" max="9" placeholder="이메일을 입력하여주세요." 
-            style="font-size: 1.0em; font-weight: bold; display: inline; width: 300px;"/>
-
-        <div style="margin-top: 30px;"></div>
-        <div style="font-weight: bold; font-size: 0.9em; display:inline;">개인정보 수집 및 이용에 대한 동의 내용</div>
-        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 0.9em;">①개인정보 수집 항목: 이메일,
-            연락처</div>
-        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 0.9em;">②수집목적: 고객식별, 문의 응대,
-            서비스 품질 향상</div>
-        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 0.9em;">
-            ③보유 및 이용기간: 수집 목적이 달성되면 지체없이 모든 개인정보를 파기합니다. 단, 관계법령에서 일정 기간 정보의 보관을 규정한 경우에 한해 분리 보관 후 파기합니다.</div>
-        <div style="margin-top: 30px;"></div>
-        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 0.9em;">
-            *위 동의는 거부할 수 있으며, 거부시 해당 문의를 처리할 수 없습니다.</div>
-        <br>
-
-        <div style="margin-top: 20px;"></div>
-        <div style="font-weight: bold;"><input type="checkbox"> 동의합니다. <div style="color: red; display: inline;">*</div>
-        </div>
-        <div style="margin-top: 100px;"></div>
-        <button type="submit" class="eButton"
-            style="border-radius: 40px; padding: 1.5px 20px; color: rgb(255, 255, 255);">
-            <a style="color: azure; text-decoration: none;">제출하기</a>
-        </button>
-        <div style="margin-top: 200px;">
         </form>
         </div>
     </div>

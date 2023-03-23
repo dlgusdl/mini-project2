@@ -35,13 +35,29 @@
         }
 
         .qButton {
-            font-size: 1em;
+            font-size: 0.9em;
             font-weight: bold;
             width: 124px;
             height: 35px;
             display: inline;
             float: right;
-            margin-right: 3em;
+            margin-right: 3px;
+            background-color: rgb(20, 73, 233);
+            cursor: pointer;
+            color: rgb(255, 255, 255);
+            border: none;
+            padding: 0.2em 2em;
+
+        }
+
+        .qButton2 {
+            font-size: 1.0em;
+            font-weight: bold;
+            width: 124px;
+            height: 35px;
+            display: inline;
+            float: right;
+            margin-right: 3px;
             background-color: rgb(20, 73, 233);
             cursor: pointer;
             color: rgb(255, 255, 255);
@@ -126,7 +142,11 @@
                 고객 서비스
             </div>
             <button type="submit" class="qButton"
-                style="border-radius: 30px; padding: 1.5px 20px; margin-right: 0em; ;">
+                style="border-radius: 50px; padding: 2.0px 2px; margin-right: 0em;">
+                <a href="/help/inquirydetailsForm" style="text-decoration: none; color: rgb(253, 255, 255);"> 문의 상세페이지 </a>
+            </button>
+            <button type="submit" class="qButton2"
+                style="border-radius: 30px; padding: 1.5px 20px; margin-right: 1em;">
                 <a href="/help/inquiryForm" style="text-decoration: none; color: rgb(253, 255, 255);"> 문의하기</a>
             </button>
             <hr>
@@ -211,7 +231,7 @@
                 </div>
             </div>
         </div>
-                                  <div style="margin-top: 130px;"></div>
+        <div style="margin-top: 130px;"></div>
         </div>
         
 <%@ include file="../layout/footer.jsp" %>

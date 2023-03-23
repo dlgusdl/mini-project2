@@ -114,5 +114,7 @@ create table help_tb(
     user_id int not null,
     title varchar not null,
     content varchar not null,
+    email varchar not null,
+    tel int not null,
     created_at timestamp
 );

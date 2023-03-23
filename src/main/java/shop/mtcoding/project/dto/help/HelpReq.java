@@ -11,12 +11,21 @@ public class HelpReq {
     @Getter
     @AllArgsConstructor
     public static class HelpSaveReqDto{
-        private Integer helpId;
+        private Integer userId;
         private String email;
-        private int tel;
+        private Integer tel;
         private String title;
         private String content;
         private Timestamp createdAt;
     }
 
+    // @Setter
+    // @Getter
+    // public static class HelpDetailRespDto{
+    //     private Integer userId;
+    //     private String email;
+    //     private String title;
+    //     private String content;
+    //     private Timestamp createdAt;
+    // }
 }
