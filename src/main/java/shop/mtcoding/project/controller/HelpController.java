@@ -9,13 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import shop.mtcoding.project.config.exception.CustomException;
-//import shop.mtcoding.project.dto.help.HelpReq.HelpDetailRespDto;
+import shop.mtcoding.project.dto.help.HelpReq.HelpDetailRespDto;
 import shop.mtcoding.project.dto.help.HelpReq.HelpSaveReqDto;
-//import shop.mtcoding.project.model.help.HelpRepository;
 import shop.mtcoding.project.model.user.User;
 import shop.mtcoding.project.service.HelpService;
-
-
 
 @Controller
 public class HelpController {
@@ -23,44 +20,37 @@ public class HelpController {
     @Autowired
     private HttpSession session;
 
-    // @Autowired
-    // private HelpRepository helpRepository;
+    @Autowired
+    private HelpDetailRespDto helpDetailRespDto;
 
     @Autowired
     private HelpService helpService;
 
     @PostMapping("/help/inquiryForm")
-    public String helpinquiryForm(HelpSaveReqDto hDto){
+    public String helpinquiryForm(HelpSaveReqDto hDto) {
         User principal = (User) session.getAttribute("principal");
-        if (principal == null)
-        {
+        if (principal == null) {
             throw new CustomException("로그인이 필요한 페이지입니다.", HttpStatus.UNAUTHORIZED);
         }
-        if ( hDto.getTitle() == null || hDto.getTitle().isEmpty() ){
+        if (hDto.getTitle() == null || hDto.getTitle().isEmpty()) {
             throw new CustomException("글 제목이 없습니다.");
         }
-        if ( hDto.getTitle().length() > 100 ){
+        if (hDto.getTitle().length() > 100) {
             throw new CustomException("제목의 허용길이 100자를 초과했습니다.");
         }
-        if ( hDto.getContent() == null || hDto.getContent().isEmpty() ){
+        if (hDto.getContent() == null || hDto.getContent().isEmpty()) {
             throw new CustomException("글 내용이 없습니다.");
         }
-        if ( hDto.getTel() == null){
+        if (hDto.getTel() == null) {
             throw new CustomException("글 내용이 없습니다.");
         }
-        if ( hDto.getEmail() == null ){
+        if (hDto.getEmail() == null) {
             throw new CustomException("이메일을 입력하여주세요.");
-        }      
-        hDto.setUserId(principal.getUserId()); 
-        helpService.글쓰기(hDto);         
+        }
+        hDto.userRepository.findById(principal.getUserId());
+        helpService.글쓰기(hDto);
         return "redirect:/help";
     }
-
-    // @GetMapping("/help")
-    // public String helpdetailForm(){ 
-    //     return "";
-    // }
-
 
     @GetMapping("/help")
     public String help() {
@@ -73,8 +63,11 @@ public class HelpController {
     }
 
     @GetMapping("/help/inquirydetailsForm")
-    public String inquirydetailsForm(){
-        return "/help/inquirydetailsForm";
+    public String inquirydetailsForm(HelpDetailRespDto hdDto) {
+        User principal = (User) session.getAttribute("principal");
+        hdDto.setUserId(principal.getUserId());
+        System.out.println(hdDto);
+        return "help/inquirydetailsForm";
     }
 
     @GetMapping("/help/user01Form")

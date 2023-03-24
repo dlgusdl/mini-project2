@@ -12,11 +12,13 @@ import shop.mtcoding.project.dto.help.HelpReq.HelpSaveReqDto;
 public interface HelpRepository {
     public List<Help> findAll();
 
+    public Help findByUserId(@Param("userId") Integer userId);
+
     public Help fnidBytitle(@Param("title") String title);
 
     public Help findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
     public int insert(@Param("hDto") HelpSaveReqDto hDto);
-    
+
     public int deleteById();
 }

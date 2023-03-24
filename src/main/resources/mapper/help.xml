@@ -9,6 +9,12 @@
             values ( #{hDto.userId}, #{hDto.title}, #{hDto.content}, #{hDto.email}, #{hDto.tel}, now());
     </insert>
 
+    <select id= "findByUserId" resultType="shop.mtcoding.project.dto.help.HelpReq$HelpDetailRespDto">
+        select user_id, email, title, content, created_at
+        from help_tb
+        where user_id = #{userId}
+    </select> 
+
     <delete id="deleteById">
         delete from help_tb where id = #{helpId}
     </delete>

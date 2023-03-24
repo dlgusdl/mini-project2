@@ -10,7 +10,7 @@ public class HelpReq {
     @Setter
     @Getter
     @AllArgsConstructor
-    public static class HelpSaveReqDto{
+    public static class HelpSaveReqDto {
         private Integer userId;
         private String email;
         private Integer tel;
@@ -19,13 +19,13 @@ public class HelpReq {
         private Timestamp createdAt;
     }
 
-    // @Setter
-    // @Getter
-    // public static class HelpDetailRespDto{
-    //     private Integer userId;
-    //     private String email;
-    //     private String title;
-    //     private String content;
-    //     private Timestamp createdAt;
-    // }
+    @Setter
+    @Getter
+    public static class HelpDetailRespDto {
+        private Integer userId;
+        private String email;
+        private String title;
+        private String content;
+        private Timestamp createdAt;
+    }
 }
