@@ -121,7 +121,7 @@
                         <div name="content" style="margin-left: 15px; margin-top: 20px;">
                             <div>
                                 <TEXtarea style="width: 930px; height: 240px; 
-                                padding-left: 20px; border-radius: 10px;">DDDDD</TEXtarea>
+                                padding-left: 20px; border-radius: 10px;"></TEXtarea>
                             </div>
                         </div>
                     </div>

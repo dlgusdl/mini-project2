@@ -1,10 +1,14 @@
 package shop.mtcoding.project.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -12,6 +16,7 @@ import shop.mtcoding.project.config.exception.CustomException;
 import shop.mtcoding.project.dto.help.HelpReq.HelpDetailRespDto;
 import shop.mtcoding.project.dto.help.HelpReq.HelpSaveReqDto;
 import shop.mtcoding.project.model.user.User;
+import shop.mtcoding.project.model.user.UserRepository;
 import shop.mtcoding.project.service.HelpService;
 
 @Controller
@@ -21,7 +26,7 @@ public class HelpController {
     private HttpSession session;
 
     @Autowired
-    private HelpDetailRespDto helpDetailRespDto;
+    private UserRepository userRepository;
 
     @Autowired
     private HelpService helpService;
@@ -42,12 +47,12 @@ public class HelpController {
             throw new CustomException("글 내용이 없습니다.");
         }
         if (hDto.getTel() == null) {
-            throw new CustomException("글 내용이 없습니다.");
+            throw new CustomException("전화번호를 입력해주세요.");
         }
         if (hDto.getEmail() == null) {
-            throw new CustomException("이메일을 입력하여주세요.");
+            throw new CustomException("이메일을 입력해주세요.");
         }
-        hDto.userRepository.findById(principal.getUserId());
+        hDto.setUserId(principal.getUserId());
         helpService.글쓰기(hDto);
         return "redirect:/help";
     }
@@ -63,12 +68,19 @@ public class HelpController {
     }
 
     @GetMapping("/help/inquirydetailsForm")
-    public String inquirydetailsForm(HelpDetailRespDto hdDto) {
-        User principal = (User) session.getAttribute("principal");
-        hdDto.setUserId(principal.getUserId());
-        System.out.println(hdDto);
-        return "help/inquirydetailsForm";
+    public String inquirydetailsForm(HelpDetailRespDto hdDto, HttpServletRequest request) {
+    if (request == null) {
+        throw new CustomException("HttpServletRequest 가 null 입니다.");
     }
+    User principal = (User) request.getSession().getAttribute("principal");
+    if (principal == null) {
+        throw new CustomException("로그인이 필요한 페이지입니다.", HttpStatus.UNAUTHORIZED);
+    }
+    hdDto.setUserId(principal.getUserId());
+    System.out.println(hdDto);
+    return "help/inquirydetailsForm";
+    }
+
 
     @GetMapping("/help/user01Form")
     public String user01Form() {
